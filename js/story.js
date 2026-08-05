@@ -1,15 +1,15 @@
 window.CHARACTERS = {
-  guan_yu: { name: '关羽', title: '汉寿亭侯', surname: '关', color: '#c62828' },
-  zhang_fei: { name: '张飞', title: '车骑将军', surname: '张', color: '#1565c0' },
-  liu_bei: { name: '刘备', title: '汉中王', surname: '刘', color: '#f9a825' },
-  zhuge_liang: { name: '诸葛亮', title: '军师中郎将', surname: '亮', color: '#2e7d32' },
-  lu_meng: { name: '吕蒙', title: '东吴大都督', surname: '吕', color: '#6a1b9a' },
-  lu_xun: { name: '陆逊', title: '东吴书生', surname: '陆', color: '#00838f' },
-  mi_fang: { name: '糜芳', title: '南郡太守', surname: '糜', color: '#795548' },
-  fu_shiren: { name: '傅士仁', title: '公安守将', surname: '傅', color: '#546e7a' },
-  zhou_cang: { name: '周仓', title: '关羽部将', surname: '周', color: '#4e342e' },
-  player: { name: '谋士', title: '穿越谋士', surname: '谋', color: '#c9a24e' },
-  narrator: { name: '', title: '', surname: '', color: '#c9a24e' }
+  guan_yu: { name: '关羽', title: '汉寿亭侯', surname: '关', color: '#c62828', avatar: 'assets/avatars/guanyu.jpg' },
+  zhang_fei: { name: '张飞', title: '车骑将军', surname: '张', color: '#1565c0', avatar: 'assets/avatars/zhangfei.jpg' },
+  liu_bei: { name: '刘备', title: '汉中王', surname: '刘', color: '#f9a825', avatar: 'assets/avatars/liubei.jpg' },
+  zhuge_liang: { name: '诸葛亮', title: '军师中郎将', surname: '亮', color: '#2e7d32', avatar: 'assets/avatars/zhugeliang.jpg' },
+  lu_meng: { name: '吕蒙', title: '东吴大都督', surname: '吕', color: '#6a1b9a', avatar: 'assets/avatars/lvmeng.jpg' },
+  lu_xun: { name: '陆逊', title: '东吴书生', surname: '陆', color: '#00838f', avatar: 'assets/avatars/luxun.jpg' },
+  mi_fang: { name: '糜芳', title: '南郡太守', surname: '糜', color: '#795548', avatar: '' },
+  fu_shiren: { name: '傅士仁', title: '公安守将', surname: '傅', color: '#546e7a', avatar: '' },
+  zhou_cang: { name: '周仓', title: '关羽部将', surname: '周', color: '#4e342e', avatar: '' },
+  player: { name: '谋士', title: '穿越谋士', surname: '谋', color: '#c9a24e', avatar: 'assets/avatars/moushi.jpg' },
+  narrator: { name: '', title: '', surname: '', color: '#c9a24e', avatar: '' }
 };
 
 window.STORY_DATA = {

@@ -91,18 +91,12 @@ window.GameController = class GameController {
       case 'narration':
       case 'dialogue':
         this.ui.showNarration(scene.paragraphs, scene.character, () => {
-          // On complete, show next button and allow click-anywhere to advance
-          const advance = () => {
+          // On complete, allow clicking anywhere (including btn-next) to advance
+          this.ui._pendingAdvance = () => {
             const btn = document.getElementById('btn-next');
             if (btn) btn.classList.add('hidden');
             this.advanceScene(scene.next);
           };
-          const btnNext = document.getElementById('btn-next');
-          if (btnNext) {
-            btnNext.onclick = advance;
-          }
-          // Also allow clicking anywhere on story screen to advance
-          this.ui._pendingAdvance = advance;
         });
         break;
         

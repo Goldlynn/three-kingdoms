@@ -8,10 +8,10 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/battle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&family=ZCOOL+QingKe+HuangYou&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=1.0.3">
+    <link rel="stylesheet" href="css/animations.css?v=1.0.3">
+    <link rel="stylesheet" href="css/battle.css?v=1.0.3">
 </head>
 <body>
     <div id="game-container">
@@ -88,6 +88,7 @@
                 <span id="battle-title"></span>
                 <span id="turn-counter"></span>
                 <span id="battle-phase"></span>
+                <button id="btn-rules" class="battle-btn btn-rules" onclick="window.game && window.game.ui.showRulesModal()">❓ 规则</button>
             </div>
             <div id="battle-main">
                 <div id="battle-grid-container">

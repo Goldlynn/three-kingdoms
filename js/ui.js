@@ -116,7 +116,15 @@ window.UIManager = class UIManager {
       }
       if (nameDisplay) nameDisplay.textContent = charData.name;
       if (titleDisplay) titleDisplay.textContent = charData.title || '';
-      if (portraitChar) portraitChar.textContent = charData.surname || charData.name.charAt(0);
+      
+      // Avatar image or text fallback
+      if (portraitChar) {
+        if (charData.avatar) {
+          portraitChar.innerHTML = `<img src="${charData.avatar}" alt="${charData.name}" class="portrait-img">`;
+        } else {
+          portraitChar.textContent = charData.surname || charData.name.charAt(0);
+        }
+      }
     } else {
       const charAreaParent = document.getElementById('character-area');
       if (charAreaParent) charAreaParent.style.display = 'none';
@@ -402,5 +410,80 @@ window.UIManager = class UIManager {
     }
     
     this.showScreen('ending');
+  }
+
+  // =========== Generic Modal ===========
+  showModal(title, bodyHTML, onClose) {
+    let overlay = document.getElementById('modal-overlay');
+    if (!overlay) {
+      // Create modal DOM on first call
+      overlay = document.createElement('div');
+      overlay.id = 'modal-overlay';
+      overlay.className = 'modal-overlay';
+      overlay.innerHTML = `
+        <div class="modal-box">
+          <div class="modal-header">
+            <span class="modal-title"></span>
+            <button class="modal-close">✕</button>
+          </div>
+          <div class="modal-body"></div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+
+      // Close on overlay background click
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) this.closeModal();
+      });
+      // Close button
+      overlay.querySelector('.modal-close').addEventListener('click', () => this.closeModal());
+    }
+
+    overlay.querySelector('.modal-title').textContent = title;
+    overlay.querySelector('.modal-body').innerHTML = bodyHTML;
+    overlay.classList.add('active');
+    this._modalOnClose = onClose || null;
+  }
+
+  closeModal() {
+    const overlay = document.getElementById('modal-overlay');
+    if (overlay) overlay.classList.remove('active');
+    if (this._modalOnClose) {
+      this._modalOnClose();
+      this._modalOnClose = null;
+    }
+  }
+
+  showRulesModal() {
+    const rulesHTML = `
+      <div class="rules-content">
+        <h4>📜 游戏简介</h4>
+        <p>你是一名穿越到建安二十四年的谋士，目标是阻止白衣渡江、保住荆州、改写历史。</p>
+
+        <h4>🎭 剧情系统</h4>
+        <ul>
+          <li><b>⚔️ 军力</b> — 影响战斗中我方单位强度</li>
+          <li><b>🏰 民心</b> — 影响守城和后方稳定</li>
+          <li><b>🤝 义气</b> — 兄弟情义，影响特殊选项</li>
+          <li><b>📜 谋略</b> — 消耗以解锁关键调查和替换选项</li>
+        </ul>
+        <p>你的每次抉择都会消耗/获得资源，并设置剧情标记（flag），影响后续分支和战斗加成。</p>
+
+        <h4>⚔️ 战棋系统</h4>
+        <ul>
+          <li><b>操作</b>：点击我方单位 → 蓝色高亮为可移动范围 → 点击移动 → 红色高亮为可攻击敌人 → 点击攻击</li>
+          <li><b>兵种克制</b>：骑兵 &gt; 弓兵 &gt; 步兵 &gt; 骑兵（1.5倍伤害）</li>
+          <li><b>地形</b>：🌊河流不可通行；🌲树林+3防御；🧱城墙+5防御</li>
+          <li><b>胜利条件</b>：击败吕蒙</li>
+          <li><b>失败条件</b>：关羽阵亡 或 回合耗尽</li>
+        </ul>
+
+        <h4>🏁 结局</h4>
+        <p>根据你的选择和战斗结果，第一章有两个结局：<br>
+        🌟 <b>荆州不失</b> — 改写历史！<br>
+        💔 <b>败走麦城</b> — 历史重演…</p>
+      </div>
+    `;
+    this.showModal('规则与帮助', rulesHTML);
   }
 }
