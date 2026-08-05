@@ -1,0 +1,685 @@
+:root {
+    --bg-main: #0a0a0f;
+    --bg-surface: #1a1a2e;
+    --bg-elevated: #16213e;
+    --gold-primary: #c9a24e;
+    --gold-hover: #e0b85c;
+    --red-accent: #8b2500;
+    --red-bright: #c62828;
+    --text-primary: #e0d5c1;
+    --text-secondary: #a89b8c;
+    --text-dim: #6b5f52;
+    --ink-dark: #2c2c2c;
+    --wu-purple: #6a1b9a;
+    --wei-blue: #1565c0;
+    --forest-green: #2e5c2e;
+    --river-blue: #1a3a5c;
+    --wall-brown: #3e2723;
+}
+
+/* Global & Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+}
+
+::selection {
+    background: var(--gold-primary);
+    color: var(--bg-main);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--text-dim);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-primary);
+}
+
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Screens */
+.screen {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+}
+
+/* Title Screen */
+#title-screen {
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, var(--bg-surface) 0%, var(--bg-main) 100%);
+}
+
+#particles-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.title-content {
+    z-index: 2;
+    text-align: center;
+}
+
+#game-title {
+    font-family: 'Ma Shan Zheng', 'STKaiti', 'KaiTi', cursive;
+    font-size: clamp(4rem, 10vw, 8rem);
+    color: var(--gold-primary);
+    text-shadow: 0 0 20px rgba(139, 37, 0, 0.8), 0 0 40px rgba(198, 40, 40, 0.5);
+    letter-spacing: 0.3em;
+    animation: brushReveal 2s ease-out forwards;
+    margin-bottom: 1rem;
+}
+
+#game-subtitle {
+    font-family: 'Ma Shan Zheng', 'STKaiti', 'KaiTi', cursive;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    color: var(--text-primary);
+    letter-spacing: 0.5em;
+}
+
+.title-quote {
+    font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-top: 2rem;
+    font-size: 1.2rem;
+}
+
+.title-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    justify-content: center;
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary, .btn-next {
+    background: transparent;
+    font-family: 'ZCOOL QingKe HuangYou', 'Microsoft YaHei', sans-serif;
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    border: 2px solid var(--gold-primary);
+    color: var(--gold-primary);
+    padding: 1rem 3rem;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(201,162,78,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-primary:hover {
+    background: rgba(201,162,78,0.15);
+    box-shadow: 0 0 15px rgba(201,162,78,0.5);
+    transform: scale(1.05);
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-secondary {
+    border: 2px solid var(--text-dim);
+    color: var(--text-dim);
+    padding: 1rem 3rem;
+}
+
+.btn-secondary:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-secondary);
+    background: rgba(107, 95, 82, 0.1);
+    transform: scale(1.05);
+}
+
+.btn-next {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    border: 1px solid var(--gold-primary);
+    background: rgba(26,26,46,0.8);
+    color: var(--gold-primary);
+    padding: 0.8rem 2rem;
+}
+.btn-next:hover {
+    background: rgba(201,162,78,0.2);
+    box-shadow: 0 0 10px rgba(201,162,78,0.5);
+}
+
+/* Story Screen */
+#story-screen {
+    padding-top: 0;
+    background: var(--bg-main);
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(26,26,46,0.5) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(22,33,62,0.3) 0%, transparent 40%);
+}
+
+#chapter-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(10,10,15,0.9);
+    border-bottom: 1px solid rgba(201,162,78,0.3);
+    padding: 0.8rem 2rem;
+    z-index: 10;
+    text-align: center;
+}
+
+#chapter-title-display {
+    font-family: 'Ma Shan Zheng', 'STKaiti', 'KaiTi', cursive;
+    color: var(--gold-primary);
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+}
+
+#resources-bar {
+    margin-top: 60px; /* Offset for fixed header */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+    background: rgba(26,26,46,0.8);
+    padding: 0.5rem 2rem;
+    border-bottom: 1px solid rgba(201,162,78,0.15);
+}
+
+.resource-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3rem;
+    position: relative;
+}
+
+.res-icon {
+    font-size: 1.2rem;
+}
+
+.res-label {
+    font-family: 'ZCOOL QingKe HuangYou', 'Microsoft YaHei', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.res-value {
+    font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--gold-primary);
+    min-width: 2rem;
+    text-align: right;
+    transition: color 0.5s ease;
+}
+
+.res-value.increased { color: #4caf50; }
+.res-value.decreased { color: var(--red-bright); }
+
+.resource-change-float {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    font-size: 0.9rem;
+    font-weight: bold;
+    pointer-events: none;
+    animation: floatUp 1.5s forwards;
+}
+
+/* Narrative Panel */
+#narrative-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    padding: 2rem 4rem;
+    gap: 2rem;
+    align-items: flex-start;
+    max-width: 1000px;
+    width: 100%;
+    margin: 2rem auto 0 auto;
+}
+
+#character-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+}
+
+#character-portrait {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--character-color, var(--gold-primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(26,26,46,0.8);
+    box-shadow: 0 0 20px rgba(var(--character-color-rgb, 201,162,78), 0.3);
+    transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+#portrait-char {
+    font-family: 'Ma Shan Zheng', 'STKaiti', 'KaiTi', cursive;
+    font-size: 3.5rem;
+    color: var(--character-color, var(--gold-primary));
+    transition: color 0.5s ease;
+}
+
+#character-name-display {
+    font-family: 'ZCOOL QingKe HuangYou', 'Microsoft YaHei', sans-serif;
+    font-size: 1.2rem;
+    color: var(--character-color, var(--gold-primary));
+    margin-top: 0.8rem;
+    letter-spacing: 0.1em;
+}
+
+#character-title-display {
+    font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+}
+
+#dialogue-box {
+    flex: 1;
+    background: rgba(26,26,46,0.6);
+    border: 1px solid rgba(201,162,78,0.2);
+    border-radius: 4px;
+    padding: 2rem 2.5rem;
+    position: relative;
+    min-height: 200px;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+}
+
+/* Decorative corners */
+#dialogue-box::before,
+#dialogue-box::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 2px solid var(--gold-primary);
+    opacity: 0.6;
+}
+
+#dialogue-box::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+}
+
+#dialogue-box::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: none;
+    border-top: none;
+}
+
+#narrative-text {
+    font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+    font-size: 1.1rem;
+    line-height: 2;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+}
+
+#narrative-text .typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background: var(--gold-primary);
+    margin-left: 2px;
+    animation: cursorBlink 0.8s infinite;
+    vertical-align: middle;
+}
+
+#text-indicator {
+    position: absolute;
+    bottom: 1rem;
+    right: 1.5rem;
+    color: var(--gold-primary);
+    animation: bounce 1s infinite;
+}
+
+/* Choices Panel */
+#choices-panel {
+    padding: 1rem 4rem;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+}
+
+.choice-btn {
+    background: rgba(26,26,46,0.8);
+    border: 1px solid rgba(201,162,78,0.4);
+    color: var(--text-primary);
+    padding: 1rem 1.5rem;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: slideInLeft 0.4s forwards;
+}
+
+/* Add stagger to children */
+.choice-btn:nth-child(1) { animation-delay: 0.1s; }
+.choice-btn:nth-child(2) { animation-delay: 0.2s; }
+.choice-btn:nth-child(3) { animation-delay: 0.3s; }
+.choice-btn:nth-child(4) { animation-delay: 0.4s; }
+
+.choice-btn:hover {
+    border-color: var(--gold-primary);
+    background: rgba(201,162,78,0.1);
+    transform: translateX(8px);
+    box-shadow: 0 0 15px rgba(201,162,78,0.3);
+}
+
+.choice-btn.disabled {
+    opacity: 0.4 !important;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+    pointer-events: none;
+    transform: none;
+    box-shadow: none;
+}
+
+.choice-cost {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.3rem;
+}
+
+.choice-btn.selected::after {
+    content: '印';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid rgba(198,40,40,0.8);
+    color: rgba(198,40,40,0.8);
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: sealStamp 0.5s forwards;
+}
+
+/* Overlays */
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.overlay.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+#ink-overlay.active {
+    display: block;
+    opacity: 1;
+    animation: none;
+}
+
+#ink-overlay {
+    background: var(--bg-main);
+}
+
+#chapter-overlay {
+    background: rgba(10,10,15,0.95);
+    flex-direction: column;
+}
+
+#chapter-overlay.active {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+#chapter-overlay-title {
+    font-family: 'Ma Shan Zheng', 'STKaiti', 'KaiTi', cursive;
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: var(--gold-primary);
+    letter-spacing: 0.3em;
+}
+
+#chapter-overlay-subtitle {
+    font-family: 'Ma Shan Zheng', 'STKaiti', 'KaiTi', cursive;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--text-primary);
+    margin-top: 1rem;
+}
+
+#chapter-overlay-year {
+    font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+
+.notification {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    background: rgba(26,26,46,0.95);
+    border: 1px solid var(--gold-primary);
+    border-radius: 4px;
+    padding: 1rem 1.5rem;
+    color: var(--text-primary);
+    z-index: 200;
+    animation: slideInRight 0.3s;
+    max-width: 300px;
+}
+
+/* Ending Screen */
+#ending-screen {
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, rgba(30,10,10,0.8) 0%, var(--bg-main) 100%);
+    text-align: center;
+    padding: 2rem;
+}
+
+#ending-title {
+    font-family: 'Ma Shan Zheng', 'STKaiti', 'KaiTi', cursive;
+    font-size: 4rem;
+    color: var(--gold-primary);
+    margin-bottom: 1rem;
+    letter-spacing: 0.2em;
+}
+
+#ending-subtitle {
+    font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.1em;
+}
+
+#ending-text {
+    font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    max-width: 600px;
+    margin: 2rem auto;
+    line-height: 2;
+}
+
+#ending-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2rem auto;
+    max-width: 400px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #narrative-panel {
+        flex-direction: column;
+        padding: 1rem 2rem;
+        align-items: center;
+    }
+    
+    #character-area {
+        flex-direction: row;
+        gap: 1rem;
+        min-width: auto;
+    }
+    
+    #character-portrait {
+        width: 60px;
+        height: 60px;
+    }
+    
+    #portrait-char {
+        font-size: 2rem;
+    }
+    
+    #dialogue-box {
+        padding: 1.5rem;
+        min-height: 150px;
+        width: 100%;
+    }
+    
+    #choices-panel {
+        padding: 1rem 2rem;
+    }
+    
+    #resources-bar {
+        gap: 1rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .res-label {
+        display: none;
+    }
+}
+
+/* Utility Classes */
+.hidden { display: none !important; }
+.shake { animation: shakeScreen 0.5s; }
+.fade-in { animation: fadeIn 0.5s forwards; }
+.fade-out { animation: fadeOut 0.5s forwards; }
+
+/* Particles */
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(201, 162, 78, 0.15);
+    pointer-events: none;
+    animation: particleFloat 6s ease-in-out infinite;
+}
+
+/* Resource Change Float */
+.resource-change-float {
+    position: absolute;
+    top: -5px;
+    right: 0;
+    font-family: 'ZCOOL QingKe HuangYou', sans-serif;
+    font-size: 0.9rem;
+    pointer-events: none;
+    animation: floatUp 1.5s ease-out forwards;
+    z-index: 10;
+}
+.resource-change-float.pos { color: #4caf50; }
+.resource-change-float.neg { color: #c62828; }
+
+/* Resource Item Position */
+.resource-item {
+    position: relative;
+}
+
+.resource-item.increased .res-value { color: #4caf50; transition: color 0.3s; }
+.resource-item.decreased .res-value { color: #c62828; transition: color 0.3s; }
+
+/* Ending Stats */
+.ending-stat {
+    background: rgba(26,26,46,0.6);
+    border: 1px solid rgba(201,162,78,0.2);
+    border-radius: 4px;
+    padding: 0.8rem;
+    text-align: center;
+    font-family: 'ZCOOL QingKe HuangYou', sans-serif;
+    color: var(--text-primary);
+}
+
+/* Notification show state */
+.notification.show {
+    display: block !important;
+}
