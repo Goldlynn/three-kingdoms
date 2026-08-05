@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>逆天改命 - 三国·荆州劫</title>
+    <meta name="description" content="一款以白衣渡江到夷陵之败为核心的三国互动叙事策略游戏">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/battle.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Overlays -->
+        <div id="ink-overlay" class="overlay"></div>
+        <div id="chapter-overlay" class="overlay">
+            <div id="chapter-overlay-title"></div>
+            <div id="chapter-overlay-subtitle"></div>
+            <div id="chapter-overlay-year"></div>
+        </div>
+        <div id="notification" class="notification hidden"></div>
+
+        <!-- Title Screen -->
+        <div id="title-screen" class="screen active">
+            <div id="particles-container"></div>
+            <div class="title-content">
+                <h1 id="game-title">逆天改命</h1>
+                <h2 id="game-subtitle">三国 · 荆州劫</h2>
+                <p class="title-quote">「天意难违？吾偏要逆天改命！」</p>
+                <div class="title-buttons">
+                    <button id="btn-new-game" class="btn-primary">开始新的命运</button>
+                    <button id="btn-continue" class="btn-secondary">继续征途</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story Screen -->
+        <div id="story-screen" class="screen">
+            <div id="chapter-header">
+                <span id="chapter-title-display"></span>
+            </div>
+            <div id="resources-bar">
+                <div class="resource-item" id="res-military">
+                    <span class="res-icon">⚔️</span>
+                    <span class="res-label">军力</span>
+                    <span class="res-value" data-resource="military">100</span>
+                </div>
+                <div class="resource-item" id="res-morale">
+                    <span class="res-icon">🏰</span>
+                    <span class="res-label">民心</span>
+                    <span class="res-value" data-resource="morale">80</span>
+                </div>
+                <div class="resource-item" id="res-brotherhood">
+                    <span class="res-icon">🤝</span>
+                    <span class="res-label">义气</span>
+                    <span class="res-value" data-resource="brotherhood">100</span>
+                </div>
+                <div class="resource-item" id="res-strategy">
+                    <span class="res-icon">📜</span>
+                    <span class="res-label">谋略</span>
+                    <span class="res-value" data-resource="strategy">50</span>
+                </div>
+            </div>
+            <div id="narrative-panel">
+                <div id="character-area">
+                    <div id="character-portrait">
+                        <span id="portrait-char"></span>
+                    </div>
+                    <div id="character-name-display"></div>
+                    <div id="character-title-display"></div>
+                </div>
+                <div id="dialogue-box">
+                    <div id="narrative-text"></div>
+                    <div id="text-indicator" class="hidden">▼</div>
+                </div>
+            </div>
+            <div id="choices-panel" class="hidden"></div>
+            <button id="btn-next" class="btn-next hidden">继续 ▶</button>
+        </div>
+
+        <!-- Battle Screen -->
+        <div id="battle-screen" class="screen">
+            <div id="battle-header">
+                <span id="battle-title"></span>
+                <span id="turn-counter"></span>
+                <span id="battle-phase"></span>
+            </div>
+            <div id="battle-main">
+                <div id="battle-grid-container">
+                    <div id="battle-grid"></div>
+                </div>
+                <div id="battle-sidebar">
+                    <div id="unit-info-panel">
+                        <h3>选中单位</h3>
+                        <div id="unit-info">点击单位查看信息</div>
+                    </div>
+                    <div id="battle-log-panel">
+                        <h3>战况</h3>
+                        <div id="battle-log"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="battle-actions">
+                <button id="btn-attack" class="battle-btn" disabled>⚔️ 攻击</button>
+                <button id="btn-wait" class="battle-btn" disabled>⏳ 待机</button>
+                <button id="btn-end-turn" class="battle-btn">🏁 结束回合</button>
+            </div>
+        </div>
+
+        <!-- Ending Screen -->
+        <div id="ending-screen" class="screen">
+            <div id="ending-content">
+                <h2 id="ending-title"></h2>
+                <p id="ending-subtitle"></p>
+                <div id="ending-text"></div>
+                <div id="ending-stats"></div>
+            </div>
+            <div class="title-buttons">
+                <button id="btn-restart" class="btn-primary">再续前缘</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/story.js"></script>
+    <script src="js/battle.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
